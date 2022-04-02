@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findAll({
+    const productData = async() => await Product.findAll({
       include: [{ model: Category }, {model: Tag}],
     });
     res.status(200).json(productData);
@@ -22,8 +22,7 @@ router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findByPk(req.params.id, {
-      // Add Book as a second model to JOIN with
+    const productData = async() => await Product.findByPk(req.params.id, {
       include: [{ model: Category }, {model: Tag}]
     });
 
@@ -115,7 +114,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
   try {
-    const productData = await Product.destroy({
+    const productData = async() => await Product.destroy({
       where: {
         id: req.params.id,
       },
